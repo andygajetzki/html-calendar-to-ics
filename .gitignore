@@ -1,7 +1,9 @@
 vendor/*
 */logs/*
+*/log/*
 */cache/*
 web/uploads/*
 web/bundles/*
 composer.phar
+*~
 
