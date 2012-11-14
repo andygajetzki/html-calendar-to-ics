@@ -1,21 +1,37 @@
-# Slim Framework Skeleton Application
+# HTML Calendar to ICS
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework application. This application uses the latest Slim and Slim-Extras repositories. It also uses Sensio Labs' [Twig](http://twig.sensiolabs.org) template library.
+Use this app to pull any HTML based calendar from the web and create an ICS file for your calendar. Custom calendars can be added in config/calendars using the .ini format. 
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+To get started, clone the repo, and run 
 
-## Install Composer
+```
+cd public
+php -S 0.0.0.0:8080 
+```
 
-If you have not installed Composer, do that now. I prefer to install Composer globally in `/usr/local/bin`, but you may also install Composer locally in your current working directory. For this tutorial, I assume you have installed Composer locally.
+## INI Configuration options
+All configuration files must have a [calendar] key.
 
-<http://getcomposer.org/doc/00-intro.md#installation>
+Example:
 
-## Install the Application
+```
+[calendar]
+name="World Health Edgemont" 
+url="http://www.worldhealth.ca/whc/calendar/search.aspx"
+url_post_data="c=40"
+xpath_days="//table/tbody/tr/td/p[contains(@class, "date")]"
+xpath_events="//table/tbody/tr/td/p[contains(@class, "class") and ../p[contains(@class, "date")] and ../p[text() = '%%DAY%%']]"
+xpath_event_description="//"
+xpath_event_start_time="//span"
+xpath_event_end_time="//span"
+xpath_event_start_day="//../p[contains(@class, 'date')]"
+xpath_event_end_day="//../p[contains(@class, 'date')]"
+xpath_event_location="string('')"
+timezone="America/Edmonton"
+```
 
-After you install Composer, run this command from the directory in which you want to install your new Slim Framework application.
+As shown, xpath is used to build the ICS from the page. 
 
-    php composer.phar create-project slim/slim-skeleton [my-app-name]
-
-Replace <code>[my-app-name]</code> with the desired directory name for your new application. You'll want to point your virtual host document root to your new application's `public/` directory.
-
-That's it! Now go build something cool.
+## TODO
+- fix empty node problem
+- add data transformers to modify resulting node from query
