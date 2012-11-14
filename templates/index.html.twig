@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="row">
+    <div class="twelve columns">
+        <h2>HTML Calendar to ICS</h2>
+        <h3>Available Calendars</h3>
+        {% for calendar in calendars %}
+            <div class="row">
+                <div class="six columns">
+                    <a style="display: block" href="/calendar/{{ calendar.slug }}">
+                            <div class="panel callout radius">
+                            <h5>{{ calendar.data.name }}</h5>
+                            <small>{{ calendar.data.url }}</small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
